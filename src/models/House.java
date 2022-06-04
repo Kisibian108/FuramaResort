@@ -8,6 +8,8 @@ public class House extends Facility {
     public House() {
     }
 
+
+
     public House(String roomStandard, int floor) {
         this.roomStandard = roomStandard;
         this.floor = floor;
@@ -39,6 +41,18 @@ public class House extends Facility {
 
     public void setFloor(int floor) {
         this.floor = floor;
+    }
+    @Override
+    public String convertLine() {
+        String COMMA = ",";
+        return super.getId() +
+                COMMA + super.getNameService() +
+                COMMA + super.getArea() +
+                COMMA + super.getPrice() +
+                COMMA + super.getMax() +
+                COMMA + super.getRentType() +
+                COMMA + this.getRoomStandard() +
+                COMMA + this.getFloor();
     }
 
     @Override

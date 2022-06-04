@@ -1,12 +1,9 @@
 package services;
 
 import models.Employee;
-import models.Person;
+import utils.CheckException;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,9 +14,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public static int count;
 
     static {
-        Employee employee1 = new Employee(1, "Lam", 1992, "Male", 184016595, 973439239, "kisibian108@gmail.com", "University", "Staff", 10000000);
-        Employee employee2 = new Employee(2, "Hoa", 1989, "Female", 182084354, 973245368, "hoanglien249@gmail.com", "University", "Staff", 10000000);
-        Employee employee3 = new Employee(3, "Nam", 1991, "Male", 184325427, 973425360, "namtuoc105@gmail.com", "University", "Staff", 12000000);
+        Employee employee1 = new Employee(1, "Lam", "10/08/1992", "Male", 184016595, 973439239, "kisibian108@gmail.com", "University", "Staff", 10000000);
+        Employee employee2 = new Employee(2, "Hoa", "15/08/1989", "Female", 182084354, 973245368, "hoanglien249@gmail.com", "University", "Staff", 10000000);
+        Employee employee3 = new Employee(3, "Nam", "11/07/1991", "Male", 184325427, 973425360, "namtuoc105@gmail.com", "University", "Staff", 12000000);
         count = 3;
         list.add(employee1);
         list.add(employee2);
@@ -41,6 +38,30 @@ public class EmployeeServiceImpl implements EmployeeService {
                     employee.getSalary();
             EmployeeServiceImpl.writeFile("src/data/employee.csv", line);
         }
+            List<String[]> employee = EmployeeServiceImpl.readFile("src/data/employee.csv");
+        for ( String[] employee1: employee ) {
+            System.out.println(employee1.toString());
+        }
+    }
+
+    public static List<String[]> readFile(String path){
+        File file = new File(path);
+        List<String[]> list = new ArrayList<>();
+        try {
+            String line = null;
+            FileReader fileReader = new FileReader(file);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            while ((line = bufferedReader.readLine())!= null){
+                String [] arr = line.split(",");
+                list.add(arr);
+            }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     public static void writeFile(String path, String line) {
@@ -67,11 +88,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void add() {
 
         System.out.println("Nhap id:");
-        int id = Integer.parseInt(scanner.nextLine());
+        int id = CheckException.checkParseInt();
         System.out.println("Nhap ten:");
         String name = scanner.nextLine();
         System.out.println("Nhap nam sinh");
-        int birthday = Integer.parseInt(scanner.nextLine());
+        String birthday = (scanner.nextLine());
         System.out.println("Nhap gioi tinh");
         String gender = scanner.nextLine();
         System.out.println("Nhap chung minh thu");
@@ -105,7 +126,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employee.setName(name);
 
                 System.out.println("Nhap nam sinh");
-                int birthday = Integer.parseInt(scanner.nextLine());
+                String birthday = (scanner.nextLine());
                 employee.setBirthDay(birthday);
 
                 System.out.println("Nhap gioi tinh");
@@ -138,10 +159,5 @@ public class EmployeeServiceImpl implements EmployeeService {
             }
         }
         display();
-    }
-
-    @Override
-    public void remove() {
-
     }
 }

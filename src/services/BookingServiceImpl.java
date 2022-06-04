@@ -13,13 +13,12 @@ public class BookingServiceImpl implements BookingService {
     static Set<Booking> bookingSet = new TreeSet<>(new BookingComparator());
 
     static List<Customer> customerList = new ArrayList<>();
-
     static Map<Facility, Integer> facilityIntegerMap = new LinkedHashMap<>();
 
     static {
-        customerList.add(new Customer(1,"Linh", 1994, "Male", 184392567, 974325476,"kisibian999@gmail.com","Gold", "Ha Tinh"));
-        customerList.add(new Customer(2,"Hoa", 1987,"Female",182354657,976324321,"hoanglien124@gmail.com","Diamond", "Da Nang"));
-        customerList.add(new Customer(3,"Ngoc",1988,"Female",183245365,974325467,"kisibian249@gmail.com","Silve","Hai Phong"));
+        customerList.add(new Customer(1,"Linh", "10/08/1994", "Male", 184392567, 974325476,"kisibian999@gmail.com","Gold", "Ha Tinh"));
+        customerList.add(new Customer(2,"Hoa", "11/04/1987","Female",182354657,976324321,"hoanglien124@gmail.com","Diamond", "Da Nang"));
+        customerList.add(new Customer(3,"Ngoc","06/03/1988","Female",183245365,974325467,"kisibian249@gmail.com","Silve","Hai Phong"));
 
         facilityIntegerMap.put(new Villa("1","Villa", 198, 200, 3,"Dayly", "VIP", 50), 0);
         facilityIntegerMap.put(new Villa("2","Villa", 120, 300, 3,"Dayly", "VIP", 100), 1);
@@ -28,6 +27,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void display() {
+
         for (Booking booking: bookingSet) {
             System.out.println(booking.toString());
         }
@@ -35,6 +35,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void add() {
+
         int id = 1;
         if(!bookingSet.isEmpty()){
             id = bookingSet.size();
@@ -42,25 +43,21 @@ public class BookingServiceImpl implements BookingService {
 
     Customer customer = chooseCustomer();
     Facility facility = chooseFacility();
+
         System.out.println("Nhap ngay bat dau thue");
         String startDate = scanner.nextLine();
         System.out.println("Nhap ngay tra phong");
         String endDate = scanner.nextLine();
+
         Booking booking = new Booking(id, startDate, endDate, customer,facility);
         bookingSet.add(booking);
         System.out.println("Da tao booking thanh cong");
+
     }
 
     @Override
     public void edit() {
-
     }
-
-    @Override
-    public void remove() {
-
-    }
-
     public static Customer chooseCustomer(){
         Scanner scanner = new Scanner(System.in);
         System.out.println("Danh sach khach hang");

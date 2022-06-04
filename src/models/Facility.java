@@ -79,6 +79,8 @@ public abstract class Facility {
         this.rentType = rentType;
     }
 
+    public abstract String convertLine();
+
     @Override
     public String toString() {
         return "Facility{" +

@@ -2,77 +2,39 @@ package services;
 
 import models.Customer;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public class CustomerServiceImpl implements CustomerService {
-
+public class CustomerServiceImpl2 implements CustomerService {
+    private List<Customer> customers = new ArrayList<>();
+    private static final String CUSTOMER = "src/data/customer.csv";
     static Scanner scanner = new Scanner(System.in);
-    static LinkedList<Customer> linkedList = new LinkedList<>();
     static int count;
 
-    static {
-        linkedList.add(new Customer(1, "Linh", "10/08/1994", "Male", 184392567, 974325476, "kisibian999@gmail.com", "Gold", "Ha Tinh"));
-        linkedList.add(new Customer(2, "Hoa", "11/06/1987", "Female", 182354657, 976324321, "hoanglien124@gmail.com", "Diamond", "Da Nang"));
-        linkedList.add(new Customer(3, "Ngoc", "14/05/1988", "Female", 183245365, 974325467, "kisibian249@gmail.com", "Silve", "Hai Phong"));
-        count = 3;
-    }
-
     public static void main(String[] args) {
-        CustomerServiceImpl customerService = new CustomerServiceImpl();
+        CustomerServiceImpl2 customerService = new CustomerServiceImpl2();
+        customerService.display();
         customerService.add();
-        String line = null;
-        for (Customer customer : linkedList) {
-            line = customer.getId() + "," +
-                    customer.getName() + "," +
-                    customer.getBirthDay() + "," +
-                    customer.getGender() + "," +
-                    customer.getIdCard() + "," +
-                    customer.getPhoneNumber() + "," +
-                    customer.getEmail() + "," +
-                    customer.getTypeCustomer() + "," +
-                    customer.getAddress();
-            CustomerServiceImpl.writeFile("src/data/customer.csv", line);
-        }
-    }
-
-    public static void writeFile(String path, String line) {
-        File file = new File("src/data/customer.csv");
-        try {
-            FileWriter fileWriter = new FileWriter(file, true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(line);
-            bufferedWriter.newLine();
-            bufferedWriter.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
     public void display() {
-        for (Customer customer : linkedList) {
-            System.out.println(customer);
+        customers = FileService.readCustomer(CUSTOMER);
+        if (!customers.isEmpty()) {
+            for (Customer customer : customers) {
+                System.out.println(customer);
+            }
+        } else {
+            System.out.println("List rong");
         }
     }
 
     @Override
     public void add() {
-        boolean check = true;
-        while (check) {
-            try {
-                System.out.println("Nhap id:");
-                int id = Integer.parseInt(scanner.nextLine());
-                check = false;
-            } catch (Exception e) {
-                System.err.println("Chi duoc nhap so");
-            }
-        }
-
+        customers = FileService.readCustomer(CUSTOMER);
+        System.out.println("Nhap id:");
+        int id = Integer.parseInt(scanner.nextLine());
         System.out.println("Nhap ten:");
         String name = scanner.nextLine();
         System.out.println("Nhap nam sinh");
@@ -89,9 +51,9 @@ public class CustomerServiceImpl implements CustomerService {
         String type = scanner.nextLine();
         System.out.println("Nhap dia chi");
         String address = scanner.nextLine();
-
-        linkedList.add(new Customer(count + 1, name, birthday, gender, idCard, phone, email, type, address));
         count++;
+        customers.add(new Customer(id, name, birthday, gender, idCard, phone, email, type, address));
+        FileService.writeCustomer(CUSTOMER, customers);
         display();
     }
 
@@ -99,7 +61,7 @@ public class CustomerServiceImpl implements CustomerService {
     public void edit() {
         System.out.println("Nhap id muon sua");
         int id = Integer.parseInt(scanner.nextLine());
-        for (Customer customer : linkedList) {
+        for (Customer customer : customers) {
             if (customer.getId() == id) {
                 customer.setId(id);
 
@@ -138,4 +100,6 @@ public class CustomerServiceImpl implements CustomerService {
         }
         display();
     }
+
 }
+

@@ -1,16 +1,16 @@
 package models;
 
 public abstract class Person {
-
+    private static Integer countId;
     private int id;
     private String name;
-    private int  birthDay;
+    private String birthDay;
     private String gender;
     private long idCard;
     private long phoneNumber;
     private String email;
 
-    public Person(int id, String name, int birthDay, String gender, long idCard, long phoneNumber, String email) {
+    public Person(int id, String name, String birthDay, String gender, long idCard, long phoneNumber, String email) {
         this.id = id;
         this.name = name;
         this.birthDay = birthDay;
@@ -43,11 +43,11 @@ public abstract class Person {
         this.name = name;
     }
 
-    public int getBirthDay() {
+    public String getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(int birthDay) {
+    public void setBirthDay(String birthDay) {
         this.birthDay = birthDay;
     }
 
@@ -82,6 +82,16 @@ public abstract class Person {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public static Integer getCountId() {
+        return countId;
+    }
+
+    public static void setCountId(Integer countId) {
+        Person.countId = countId;
+    }
+
+    public abstract String convertLine();
 
     @Override
     public String toString() {

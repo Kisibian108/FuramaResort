@@ -1,22 +1,17 @@
 package models;
 
-import java.util.Date;
-
 public class Booking {
 
     private int bookingNumber;
     private String startDate;
     private String finishDate;
-    private long idCustomer;
     private Customer serviceName;
     private Facility typeService;
 
-
-    public Booking(int bookingNumber, String startDate, String finishDate, long idCustomer, Customer serviceName, Facility typeService) {
+    public Booking(int bookingNumber, String startDate, String finishDate, Customer serviceName, Facility typeService) {
         this.bookingNumber = bookingNumber;
         this.startDate = startDate;
         this.finishDate = finishDate;
-        this.idCustomer = idCustomer;
         this.serviceName = serviceName;
         this.typeService = typeService;
     }
@@ -29,18 +24,7 @@ public class Booking {
         return typeService;
     }
 
-    public Booking(int bookingNumber, String startDate, String finishDate, long idCustomer, String serviceName, String typeService) {
-        this.bookingNumber = bookingNumber;
-        this.startDate = startDate;
-        this.finishDate = finishDate;
-        this.idCustomer = idCustomer;
-
-    }
-
     public Booking() {
-    }
-
-    public Booking(int id, String startDate, String endDate, Customer customer, Facility facility) {
     }
 
     public void setServiceName(Customer serviceName) {
@@ -75,13 +59,9 @@ public class Booking {
         this.finishDate = finishDate;
     }
 
-    public long getIdCustomer() {
-        return idCustomer;
-    }
 
-    public void setIdCustomer(long idCustomer) {
-        this.idCustomer = idCustomer;
-    }
+
+
 
     @Override
     public String toString() {
@@ -89,7 +69,7 @@ public class Booking {
                 "bookingNumber=" + bookingNumber +
                 ", startDate='" + startDate + '\'' +
                 ", finishDate='" + finishDate + '\'' +
-                ", idCustomer=" + idCustomer +
+                ", =" +
                 ", serviceName=" + serviceName +
                 ", typeService=" + typeService +
                 '}';
