@@ -4,6 +4,7 @@ import models.Facility;
 import models.House;
 import models.Room;
 import models.Villa;
+import utils.CheckException;
 import utils.RegexData;
 
 import java.util.*;
@@ -31,7 +32,6 @@ public class FacilityServiceImpl implements FacilityService {
     public static void main(String[] args) {
         FacilityServiceImpl facilityService = new FacilityServiceImpl();
         facilityService.display();
-
 
     }
 
@@ -79,12 +79,11 @@ public class FacilityServiceImpl implements FacilityService {
     @Override
     public void add() {
 
-        Scanner scanner = new Scanner(System.in);
         System.out.println("1. Add new Villa");
         System.out.println("2. Add new House");
         System.out.println("3. Add new Room");
         System.out.println("4. Back to menu");
-        int choose = Integer.parseInt(scanner.nextLine());
+        int choose = CheckException.checkParseInt();
         switch (choose) {
             case 1:
                 for (Villa v : FileService.readVilla("src/data/villa.csv")) {

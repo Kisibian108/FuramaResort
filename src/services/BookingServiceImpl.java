@@ -27,7 +27,6 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public void display() {
-
         for (Booking booking: bookingSet) {
             System.out.println(booking.toString());
         }
@@ -48,7 +47,6 @@ public class BookingServiceImpl implements BookingService {
         String startDate = scanner.nextLine();
         System.out.println("Nhap ngay tra phong");
         String endDate = scanner.nextLine();
-
         Booking booking = new Booking(id, startDate, endDate, customer,facility);
         bookingSet.add(booking);
         System.out.println("Da tao booking thanh cong");
